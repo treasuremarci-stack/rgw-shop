@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGW Shop - All Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        .search-container {
+            flex: 1;
+            margin: 0 30px;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .filters {
+            width: 250px;
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            height: fit-content;
+        }
+        .filter-group {
+            margin-bottom: 20px;
+        }
+        .filter-group h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .filter-option {
+            margin-bottom: 8px;
+        }
+        .filter-option input {
+            margin-right: 8px;
+        }
+        .filter-option label {
+            font-size: 13px;
+        }
+        .main-content {
+            flex: 1;
+        }
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+        .sort-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .product-image {
+            width: 100%;
+            height: 180px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-name {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            min-height: 35px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-rating {
+            font-size: 12px;
+            color: #ff9800;
+            margin-bottom: 8px;
+        }
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+        .add-to-cart {
+            width: 100%;
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .add-to-cart:hover {
+            background-color: #ff5a1f;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .filters {
+                width: 100%;
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">RGW Shop</div>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search for products...">
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="filters">
+            <div class="filter-group">
+                <h4>Category</h4>
+                <div class="filter-option">
+                    <input type="checkbox" id="laptops" checked>
+                    <label for="laptops">Laptops</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="keyboards" checked>
+                    <label for="keyboards">Keyboards</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="mice" checked>
+                    <label for="mice">Mice</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="headphones" checked>
+                    <label for="headphones">Headphones</label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <div class="filter-option">
+                    <input type="checkbox" id="price1">
+                    <label for="price1">Under $500</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price2">
+                    <label for="price2">$500 - $1000</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price3">
+                    <label for="price3">$1000 - $2000</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="price4">
+                    <label for="price4">Over $2000</label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h4>Brand</h4>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand1">
+                    <label for="brand1">Dell</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand2">
+                    <label for="brand2">HP</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand3">
+                    <label for="brand3">Lenovo</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="brand4">
+                    <label for="brand4">Razer</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="toolbar">
+                <span>Showing 12 products</span>
+                <select class="sort-select">
+                    <option value="relevant">Most Relevant</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Highest Rating</option>
+                </select>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">💻</div>
+                    <div class="product-info">
+                        <div class="product-name">Dell XPS 13 Laptop</div>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (234 reviews)</div>
+                        <div class="product-price">$999.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">⌨️</div>
+                    <div class="product-info">
+                        <div class="product-name">Mechanical Gaming Keyboard</div>
+                        <div class="product-rating">⭐⭐⭐⭐ (156 reviews)</div>
+                        <div class="product-price">$149.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🖱️</div>
+                    <div class="product-info">
+                        <div class="product-name">Wireless Gaming Mouse</div>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (89 reviews)</div>
+                        <div class="product-price">$79.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎧</div>
+                    <div class="product-info">
+                        <div class="product-name">Premium Headphones</div>
+                        <div class="product-rating">⭐⭐⭐⭐ (267 reviews)</div>
+                        <div class="product-price">$249.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💻</div>
+                    <div class="product-info">
+                        <div class="product-name">HP Pavilion 15 Laptop</div>
+                        <div class="product-rating">⭐⭐⭐⭐ (178 reviews)</div>
+                        <div class="product-price">$649.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">⌨️</div>
+                    <div class="product-info">
+                        <div class="product-name">Wireless Keyboard</div>
+                        <div class="product-rating">⭐⭐⭐⭐ (92 reviews)</div>
+                        <div class="product-price">$69.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🖱️</div>
+                    <div class="product-info">
+                        <div class="product-name">Ergonomic Mouse</div>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (201 reviews)</div>
+                        <div class="product-price">$39.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎧</div>
+                    <div class="product-info">
+                        <div class="product-name">Gaming Headset</div>
+                        <div class="product-rating">⭐⭐⭐⭐ (145 reviews)</div>
+                        <div class="product-price">$149.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💻</div>
+                    <div class="product-info">
+                        <div class="product-name">Lenovo ThinkPad</div>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (312 reviews)</div>
+                        <div class="product-price">$1199.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">⌨️</div>
+                    <div class="product-info">
+                        <div class="product-name">RGB Gaming Keyboard</div>
+                        <div class="product-rating">⭐⭐⭐⭐ (223 reviews)</div>
+                        <div class="product-price">$189.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🖱️</div>
+                    <div class="product-info">
+                        <div class="product-name">Professional Mouse</div>
+                        <div class="product-rating">⭐⭐⭐⭐ (178 reviews)</div>
+                        <div class="product-price">$99.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎧</div>
+                    <div class="product-info">
+                        <div class="product-name">Noise Cancelling Headphones</div>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (289 reviews)</div>
+                        <div class="product-price">$349.99</div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 RGW Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>
